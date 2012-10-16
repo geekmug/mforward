@@ -1,0 +1,23 @@
+Multicast Forwarder
+
+This tools is designed to forward multicast datagrams.
+
+====
+
+  Dependencies:
+
+    - Python (http://www.python.org)
+    - Twisted (http://twistedmatrix.com/)
+
+====
+
+Usage: mforward.py [options]
+Options:
+  -l, --loopback    Loopback multicast packets
+  -s, --src-group=  Source multicast group
+  -p, --src-port=   Source multicast port
+  -d, --dst-group=  Destination multicast group
+  -o, --dst-port=   Destination mutlicast port
+  -t, --ttl=        Time-to-live for outgoing packets [default: 1]
+      --version     Display Twisted version and exit.
+      --help        Display this help and exit.
