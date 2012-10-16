@@ -47,6 +47,7 @@ class MulticastClient(DatagramProtocol):
     def datagramReceived(self, datagram, address):
         self.server.forwardData(datagram)
 
+# TODO: Support IPv6 mutlicast groups (ff00::/8)
 def multicastGroup(val):
     parts = map(int, val.split('.'))
     if len(parts) != 4:
