@@ -18,7 +18,7 @@ limitations under the License.
 
 import sys
 
-from twisted.internet.protocol import DatagramProtocol, Factory
+from twisted.internet.protocol import DatagramProtocol
 from twisted.internet import reactor
 from twisted.python import usage
 
@@ -86,7 +86,8 @@ def main():
         if not config['dst-group']:
             raise usage.UsageError('No destination port provided')
         if config['loopback'] and config['src-port'] == config['dst-port']:
-            raise usage.UsageError('Loopback will be infinite because src and dst ports are the same)')
+            raise usage.UsageError(
+                'Loopback would be infinite because ports are the same)')
     except usage.UsageError, errortext:
         print '%s: %s' % (sys.argv[0], errortext)
         print '%s: Try --help for usage details.' % (sys.argv[0])
@@ -94,10 +95,14 @@ def main():
 
     config['loopback'] = bool(config['loopback'])
 
-    server = MulticastServer(config['dst-group'], config['dst-port'], config['ttl'], config['loopback'])
+    server = MulticastServer(config['dst-group'],
+                             config['dst-port'],
+                             config['ttl'],
+                             config['loopback'])
     reactor.listenMulticast(0, server, listenMultiple=True)
-    reactor.listenMulticast(config['src-port'], MulticastClient(config['src-group'], server),
-        listenMultiple=True)
+    reactor.listenMulticast(config['src-port'],
+                            MulticastClient(config['src-group'], server),
+                            listenMultiple=True)
     reactor.run()
 
 if __name__ == '__main__':
