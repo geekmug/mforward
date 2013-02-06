@@ -83,8 +83,8 @@ def main():
             raise usage.UsageError('No source port provided')
         if not config['dst-group']:
             raise usage.UsageError('No destiantion group provided')
-        if not config['dst-group']:
-            raise usage.UsageError('No destination port provided')
+        if not config['dst-port']:
+            config['dst-port'] = config['src-port']
         if config['loopback'] and config['src-port'] == config['dst-port']:
             raise usage.UsageError(
                 'Loopback would be infinite because ports are the same)')
